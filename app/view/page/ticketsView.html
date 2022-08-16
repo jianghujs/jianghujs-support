@@ -8,9 +8,8 @@
 <v-container class="fullScreen d-flex flex-column pa-0">
   <v-card class="pa-4">
     <v-row class="px-4">
-      <v-col cols="6">
-
-        <div>How Can We Help You?</div>
+      <v-col cols="6" class="pa-8">
+        <h2 class="mb-4">How Can We Help You?</h2>
         <v-text-field
           name="name"
           label="label"
@@ -48,7 +47,12 @@
       <v-col cols="12" md="8">
         <v-list-item three-line>
           <v-list-item-icon>
-            <v-icon>mdi-text-search</v-icon>
+            <v-avatar
+              color="indigo"
+              size="36"
+            >
+              <span class="white--text text-h5">36</span>
+            </v-avatar>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title style="font-size: 20px !important;">How to use Metronic with Django Framework?</v-list-item-title>
@@ -61,13 +65,13 @@
           Hello,
 When you’re done bundling, you should decide on the order of the topics your article. In most cases, you can decide to order thematically. For instance, if you want to discuss various aspects or angles of the main topic of your blog post. But you can also order your text chronologically or didactically.
         </div>
-        <v-row>
-          <v-col cols="12" md="3" v-for="item in 4">
+        <v-row class="mt-2">
+          <v-col cols="12" sm="3" v-for="item in form">
+            <span class="inputLabel">{{item.label}}</span>
             <v-select
               dense
-              :items="items"
-              v-model="value"
-              label="label"
+              :items="item.options"
+              v-model="item.value"
               filled
               single-line
               hide-details
@@ -80,16 +84,24 @@ When you’re done bundling, you should decide on the order of the topics your a
         <v-card class="pa-4" outlined>
           <v-list-item one-line>
             <v-list-item-icon>
-              <v-icon>mdi-text-search</v-icon>
+              <v-avatar
+                color="indigo"
+                size="36"
+              >
+                <span class="white--text text-h5">36</span>
+              </v-avatar>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title style="font-size: 18px !important;">How to use Metronic with Django Framework?</v-list-item-title>
+              <v-list-item-title style="font-size: 18px !important;">Sandra Piquet</v-list-item-title>
               <v-list-item-subtitle>
-                Product: Metronic By: Jerry Johns Created: 3 Hours ago(24.06.2020 at 5:03 PM)
+                2 Days ago
               </v-list-item-subtitle>
             </v-list-item-content>
+            <v-list-item-action>
+              <v-btn plain>Reply</v-btn>
+            </v-list-item-action>
           </v-list-item>
-          <div>I run a team of 20 product managers, developers, QA and UX Previously we designed everything ourselves</div>
+          <div>I run a team of 20 product managers, developers, QA and UX Previously we designed everything ourselves.</div>
         </v-card>
         <div class="text-center">
           <v-pagination
@@ -101,13 +113,18 @@ When you’re done bundling, you should decide on the order of the topics your a
       <v-col cols="12" md="4">
           <v-row>
             <v-col cols="12" md="12">
-              <v-card class="pa-4 light-blue lighten-5">
+              <v-card class="pa-8 light-blue lighten-5">
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <h2>More Channels</h2>
+                  </v-list-item-content>
+                </v-list-item>
                 <v-list-item three-line v-for="item in list" :key="item.id">
                   <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
                   </v-list-item-icon>
                   <v-list-item-content>
-                    <v-list-item-title>{{item.title}}</v-list-item-title>
+                    <h3>{{item.title}}</h3>
                     <v-list-item-subtitle>
                       {{item.desc}}
                     </v-list-item-subtitle>
@@ -116,17 +133,18 @@ When you’re done bundling, you should decide on the order of the topics your a
               </v-card>
             </v-col>
             <v-col cols="12" md="12">
-              <v-card class="pa-4 light-blue lighten-5">
-                <v-list-item three-line v-for="item in list" :key="item.id">
-                  <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
-                  </v-list-item-icon>
+              <v-card class="pa-8 light-blue lighten-5">
+                <v-list-item three-line>
                   <v-list-item-content>
-                    <v-list-item-title>{{item.title}}</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{item.desc}}
-                    </v-list-item-subtitle>
+                    <h2>Documentation</h2>
                   </v-list-item-content>
+                </v-list-item>
+                <v-list-item one-line v-for="item in list" :key="item.id">
+                  <v-btn text>
+                    <v-icon left>
+                      mdi-pencil
+                    </v-icon>
+                    {{item.title}}</v-btn>
                 </v-list-item>
               </v-card>
             </v-col>
@@ -153,15 +171,25 @@ new Vue({
   data: {
     menu:1,
     menuList: [
-      {title: '123', id: 1},
-      {title: '234', id: 2},
+      {title: 'OVERVIEW', id: 1},
+      {title: 'TICKETS', id: 2},
+      {title: 'TUTORIALS', id: 3},
+      {title: 'FAQ', id: 4},
+      {title: 'LICENSES', id: 5}
     ],
     list: [
-      {title: 'title', desc: 'Secondary line text Lorem ipsum dolor sit amet,', icon: 'mdi-text-search', id: 1}
+      {title: 'Project Briefing', desc: 'Secondary line text Lorem ipsum dolor sit amet,', icon: 'mdi-text-search', id: 1},
+      {title: 'More to discuss?', desc: 'Secondary line text Lorem ipsum dolor sit amet,', icon: 'mdi-text-search', id: 2}
     ],
     page: 2,
     items: ['title1', 'title2'],
-    value: 'title1'
+    value: 'title1',
+    form: [
+      {label: 'Product', value: 'Html Theme', options: ['Html Theme', 'Vue App']},
+      {label: 'Assign To', value: 'Karina Clark', options: ['Karina Clark', 'Robert Doe']},
+      {label: 'Status', value: 'Open', options: ['Open', 'Closed']},
+      {label: 'Priority', value: 'High', options: ['High', 'Low']},
+    ]
   },
   computed: {
     isMobile() {
