@@ -19,30 +19,33 @@
                   <span class="text"> <$ ctx.app.config.appTitle $></span>
                 </a>
                 <p class="text-grayish text-center login-type d-flex justify-content-center align-items-center">
-                  <span style="letter-spacing: 2px;width: 50px;" class="d-line-block">登录</span>
+                  <span style="letter-spacing: 2px;width: 50px;" class="d-line-block">注册</span>
                 </p>
               </div>
               <div class="mb-4">
                 <input type="text" id="userId" class="form-control" v-model="userId" placeholder="<$ constantUiMap.button.account $>"/>
               </div>
               <div class="mb-4">
-                <input type="password" id="password" class="form-control" v-model="password" placeholder="<$ constantUiMap.button.password $>"  @keyup.enter.exact="login"/>
+                <input id="password" class="form-control" v-model="password" placeholder="<$ constantUiMap.button.password $>"/>
+              </div>
+              <div class="mb-4">
+                <input id="passwordRepeat" class="form-control" v-model="passwordRepeat" placeholder="重复密码"/>
               </div>
               <div class="row mb-4">
                 <div class="col d-flex justify-content-between">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember" v-model="remember"/>
                     <label class="form-check-label" for="remember">
-                      <$ constantUiMap.button.rememberPassword $>
+                      已阅读并同意<a href="" class="text-success">条款</a>
                     </label>
                   </div>
                   <div>
-                    <span>还没有账号?</span>
-                    <a href="<$ pageUrl $>/register" class="text-success">注册</a>
+                    <span>已有账号?</span>
+                    <a href="<$ pageUrl $>/login" class="text-success">登录</a>
                   </div>
                 </div>
               </div>
-              <a role="button" class="jianghu-button-primary d-block text-center me-0" @click="login" style="line-height: 24px;"><$ constantUiMap.button.login $></a>
+              <a role="button" class="jianghu-button-primary d-block text-center me-0" style="line-height: 24px;">注册</a>
             </form>
           </div>
         </div>
@@ -67,6 +70,7 @@ new Vue({
     return {
       userId: '',
       password: '',
+      passwordRepeat: '',
       showPassword: false,
       remember: true,
       loginError: false,

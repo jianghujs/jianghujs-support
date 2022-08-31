@@ -13,7 +13,7 @@
    database: 'jianghujs-support'
    ```
 4. 启动 npm run dev
-   
+
 ## 数据库
 
 ```sql
@@ -29,11 +29,12 @@ use jianghujs-support;
 
 ## 页面
 
-1. ticketsList: ticketsList.html
-1. ticketsView: ticketsView.html
+1. 论坛应用
+
 ## FAQ
 
 - egg-jianghu mysql view
+
 ```sql
 DROP VIEW IF EXISTS `_view01_user`;
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `_view01_user` AS select * from `_user`;

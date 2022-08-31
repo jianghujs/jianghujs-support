@@ -1,0 +1,389 @@
+{% extends 'template/template.html' %}
+{% block title %}<$ articleInfo.articleTitle $>{% endblock %}
+
+{% block css %}
+<style>
+  .hidden {
+    display: none;
+  }
+  .hide {
+    display: none !important;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<main class="page-container mb-2 mb-md-3 mx-auto">
+  <div class="row g-0">
+    <div class="col-md-9">
+      <div class="me-lg-3 me-md-2">
+        <!-- 主题详情 -->
+        <div class="card shadow-0">
+          <div class="card-header d-flex justify-content-between align-items-center fs-7 fw-light">
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="badge rounded-pill badge-light"><$ articleInfo.viewCount $></span>
+                <span>次点击</span>
+              </div>
+            </div>
+            {% if userInfo.userId %}
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center" role="button">
+                {% if isLike %}
+                <i class="far fa-thumbs-up dislike-touch hidden"></i>
+                <i class="fas fa-thumbs-up like-touch"></i>
+                {% else %}
+                <i class="far fa-thumbs-up dislike-touch"></i>
+                <i class="fas fa-thumbs-up like-touch hidden"></i>
+                {% endif%}
+                <div class="like-touch-label">
+                  <span class="ms-1">点赞</span>
+                  <span class="badge rounded-pill badge-notification bg-danger like-count {% if articleInfo.likeCount == 0 %}hidden{% endif %}"><$ articleInfo.likeCount $></span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                {% if isFavorite %}
+                <i class="far fa-heart dis-favorite-touch hidden"></i>
+                <i class="fas fa-heart favorite-touch"></i>
+                {% else %}
+                <i class="far fa-heart dis-favorite-touch"></i>
+                <i class="fas fa-heart favorite-touch hidden"></i>
+                {% endif%}
+                <div class="favorite-touch-label">
+                  <span class="ms-1">收藏</span>
+                  <span class="badge rounded-pill badge-notification bg-danger favorite-count {% if articleInfo.favoriteCount == 0 %}hidden{% endif %}"><$ articleInfo.favoriteCount $></span>
+                </div>
+              </div>
+              <!-- <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                <i class="far fa-eye-slash"></i>
+                <span class="ms-1">忽略主题</span>
+              </div> -->
+              <!-- <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                <i class="fas fa-bug"></i>
+                <span class="ms-1">报告这个主题</span>
+              </div> -->
+            </div>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <img src="<$ articleInfo.userAvatar | resourceUrl(upload) $>" alt="" style="width: 50px; height: 50px"
+                      class="rounded-circle" />
+              <div class="ms-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <p class="fw-bold"><$ articleInfo.articleTitle $></p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center text-muted fs-8">
+                  <span class="badge badge-light"><$ articleInfo.categoryName $></span>
+                  <div class="ms-3"><i class="far fa-xs fa-user"></i><span class="ms-1"><$ articleInfo.articleCreateUsername $></span></div>
+                  <div class="ms-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ articleInfo.articleCreateTime | parseTimeLater $></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3"><$ articleInfo.articleContent $></div>
+          </div>
+        </div>
+
+        <!-- 主题列表 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-body py-2">
+            <!-- 分页 -->
+            <div class="card-header d-flex justify-content-between align-items-center fs-7 fw-light px-0">
+              <div class="d-flex flex-wrap justify-content-start align-items-center">
+                <div class="d-flex justify-content-start align-items-center">
+                  <span class="badge rounded-pill badge-light"><$ articleInfo.commentCount $></span>
+                  <span>条回复</span>
+                </div>
+                {% if articleInfo.lastReplyAt %}
+                <div class="d-flex justify-content-start align-items-center ms-2">
+                  <span>最后回复：<$ articleInfo.lastReplyAt | parseTime('{y}-{m}-{d} {h}:{i}:{s}') $></span>
+                </div>
+                {% endif %}
+              </div>
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  {% if article.commentCount > 0 %}
+                  第 <$ commentList.start $> 到 <$ commentList.end $> 条
+                  {% endif %}
+                </div>
+                <nav aria-label="Page navigation example" class="ms-2">
+                  <ul class="pagination">
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+            <!-- 回复 -->
+            <ul class="list-group list-group-light mt-2">
+              {% for comment in commentList.list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="d-flex flex-fill">
+                    <img src="<$ comment.userAvatar | resourceUrl(upload) $>" alt="" style="width: 45px; height: 45px"
+                      class="rounded-circle" />
+                    <div class="ms-3 flex-grow-1">
+                      <div class="d-flex justify-content-between align-items-center text-muted mb-1 fs-8">
+                        <div class="d-flex align-items-center">
+                          <!-- <span class="badge rounded-pill badge-light me-3"># <$ rpy.loop $></span> -->
+                          <div class="me-3"><i class="far fa-xs fa-user"></i><span class="ms-1"><$ comment.username $></span></div>
+                          <div class="me-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ comment.operationAt | parseTimeLater $></span></div>
+                          <div class="d-flex justify-content-start align-items-center me-3" role="button">
+                            {% if comment.isLike %}
+                            <i class="far fa-thumbs-up hidden dislike-comment-touch dislike-comment-<$ comment.id $>" data-id="<$ comment.id $>"></i>
+                            <i class="fas fa-thumbs-up like-comment-touch like-comment-<$ comment.id $>" data-id="<$ comment.id $>"></i>
+                            {% else %}
+                            <i class="far fa-thumbs-up dislike-comment-touch  dislike-comment-<$ comment.id $>" data-id="<$ comment.id $>"></i>
+                            <i class="fas fa-thumbs-up hidden like-comment-touch like-comment-<$ comment.id $>" data-id="<$ comment.id $>"></i>
+                            {% endif %}
+                            <div class="like-comment-touch-label" data-id="<$ comment.id $>">
+                              <span class="ms-1">点赞</span>
+                              <span class="badge rounded-pill badge-notification bg-danger like-comment-count-<$ comment.id $> {% if comment.likeCount == 0 %}hidden{% endif %}"><$ comment.likeCount $></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center comment-reply-btn" id="comment-reply-<$ comment.commentId $>" data-user="<$ comment.username $>" role="button">
+                          <i class="fas fa-reply"></i>
+                          <span class="ms-1">回复</span>
+                        </div>
+                      </div>
+                      {% for reply in comment.replyCommentContentJson %}
+                      <div class="px-2 py-1 mb-1 bg-light bg-gradient rounded-5">
+                        <b>Re @<$ reply.userId $>：</b><$ reply.commentContent $>
+                      </div>
+                      {% endfor %}
+                      <div class="mt-1" style="color: var(--vt-c-text-1) !important;"><$ comment.commentContent $></div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <!-- 分页 -->
+            <$ macro.pagination(commentList.page, commentList.totalPage, commentList.start, commentList.end, static, '/t/' + articleInfo.articleId) $>
+          </div>
+        </div>
+
+        <!-- 发帖 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-body">
+            <textarea class="form-control comment-content" rows="4" placeholder="添加一条新回复"></textarea>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center mt-2">
+                <button type="button" class="btn btn-success shadow-0 comment-submit-btn mr-2">回复</button>
+                <p class="text-grayish fs-7 hidden" id="cancel-comment-reply" role="button" onclick="cancelCommentReply()">取消回复</p>
+              </div>
+              <p class="text-grayish fs-7">尽量让自己的回复能够对别人有帮助</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- 个人信息 -->
+      {% include 'component/userCard.html' %}
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+   
+<script>
+  const articleId = '<$ articleInfo.articleId $>'
+  let replyUser = '';
+  let replyCommentId = '';
+  $(function(){
+    // 帖子点赞
+    $('.dislike-touch').click(function() {
+      doLikeArticle('likeArticle');
+    })
+ 
+    $('.like-touch').click(function() {
+      doLikeArticle('dislikeArticle');
+    })
+    $('.like-touch-label').click(function() {
+      const like = $('.like-touch').css('display');
+      if (like === 'none') {
+        doLikeArticle('likeArticle');
+      } else {
+        doLikeArticle('dislikeArticle');
+      }
+    })
+
+    async function doLikeArticle(type) {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+          data: {
+            appData: {
+              pageId: 'webArticle',
+              actionId: type,
+              actionData: {articleId}
+            }
+          }
+        });
+      if (status === 'success') {
+        if (type === 'likeArticle') {
+          showSuccessAlert('点赞成功');
+          $('.dislike-touch').hide();
+          $('.like-touch').show();
+          $('.like-count').show();
+          $('.like-count').html(+($('.like-count').html()) + 1);
+        } else {
+          showSuccessAlert('取消点赞成功');
+          $('.dislike-touch').show();
+          $('.like-touch').hide();
+          
+          const count = +($('.like-count').html()) - 1;
+          if (count < 1) {
+            $(`.like-count`).hide()
+          }
+          $('.like-count').html(+($('.like-count').html()) - 1);
+        }
+      }
+    }
+    
+    // 帖子收藏
+    $('.dis-favorite-touch').click(function() {
+      doFavoriteArticle('favoriteArticle');
+    })
+ 
+    $('.favorite-touch').click(function() {
+      doFavoriteArticle('disFavoriteArticle');
+    })
+    
+    $('.favorite-touch-label').click(function() {
+      const like = $('.favorite-touch').css('display');
+      if (like === 'none') {
+        doFavoriteArticle('favoriteArticle');
+      } else {
+        doFavoriteArticle('disFavoriteArticle');
+      }
+    })
+    async function doFavoriteArticle(type) {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+          data: {
+            appData: {
+              pageId: 'webArticle',
+              actionId: type,
+              actionData: {articleId}
+            }
+          }
+        });
+      if (status === 'success') {
+        if (type === 'favoriteArticle') {
+          showSuccessAlert('收藏成功');
+          $('.dis-favorite-touch').hide();
+          $('.favorite-touch').show();
+          $('.favorite-count').show();
+          $('.favorite-count').html(+($('.favorite-count').html()) + 1);
+        } else {
+          showSuccessAlert('取消收藏成功');
+          $('.dis-favorite-touch').show();
+          $('.favorite-touch').hide();
+          const count = +($('.favorite-count').html()) - 1;
+          if (count < 1) {
+            $(`.favorite-count`).hide();
+          }
+          $('.favorite-count').html(+($('.favorite-count').html()) - 1);
+        }
+      }
+    }
+
+    // 评论发布
+    $('.comment-submit-btn').click(function() {
+      createCom();
+    })
+    async function createCom() {
+      const commentContent = $('.comment-content').val();
+      if (!commentContent) {
+        showFailAlert('请输入评论内容');
+        return
+      }
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: 'insertComment',
+            actionData: {
+              articleId,
+              commentContent,
+              replyCommentId
+            }
+          }
+        }
+      });
+      if (status === 'success') {
+        showSuccessAlert('评论成功');
+        setTimeout(function() {
+          window.location.href = window.location.href;
+        }, 800)
+      }
+    }
+
+    // 评论点赞
+    $('.dislike-comment-touch').click(function() {
+      const id = $(this).attr('data-id');
+      doLikeComment('likeComment', id);
+    })
+ 
+    $('.like-comment-touch').click(function() {
+      const id = $(this).attr('data-id');
+      doLikeComment('dislikeComment', id);
+    })
+    $('.like-comment-touch-label').click(function() {
+      const id = $(this).attr('data-id');
+      const like = $(`.like-comment-${id}`).css('display');
+      if (like === 'none') {
+        doLikeComment('likeComment', id);
+      } else {
+        doLikeComment('dislikeComment', id);
+      }
+    })
+
+    async function doLikeComment(type, id) {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+          data: {
+            appData: {
+              pageId: 'webArticle',
+              actionId: type,
+              actionData: {id}
+            }
+          }
+        });
+      if (status === 'success') {
+        if (type === 'likeComment') {
+          showSuccessAlert('点赞成功');
+          $(`.dislike-comment-${id}`).hide();
+          $(`.like-comment-${id}`).show();
+          $(`.like-comment-count-${id}`).show();
+          $(`.like-comment-count-${id}`).html(+($(`.like-comment-count-${id}`).html()) + 1);
+        } else {
+          showSuccessAlert('取消点赞');
+          $(`.like-comment-${id}`).hide();
+          $(`.dislike-comment-${id}`).show();
+          const likeCount = +($(`.like-comment-count-${id}`).html()) - 1
+          if (likeCount < 1) {
+            $(`.like-comment-count-${id}`).hide()
+          }
+          $(`.like-comment-count-${id}`).html(+($(`.like-comment-count-${id}`).html()) - 1);
+
+        }
+      }
+    }
+
+    $('.comment-reply-btn').click(function() {
+      replyUser = $(this).attr('data-user');
+      replyCommentId = $(this).attr('id').split('-').pop();
+      $('.comment-content').attr('placeholder', `回复【${replyUser}】`);
+      $('.comment-reply-btn').removeClass('hide');
+      $(`#comment-reply-${replyCommentId}`).addClass('hide');
+      $('#cancel-comment-reply').show();
+    })
+    
+  });
+  function cancelCommentReply() {
+    replyUser = '';
+    replyCommentId = '';
+    $('.comment-content').attr('placeholder', '添加一条新回复');
+    $('#cancel-comment-reply').hide();
+    $('.comment-reply-btn').removeClass('hide');
+  }
+</script>
+{% endblock %}

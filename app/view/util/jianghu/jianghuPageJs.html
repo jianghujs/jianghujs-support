@@ -1,0 +1,134 @@
+<style>
+  .page-item.active .page-link {
+    background-color: #00b74a;
+  }
+</style>
+<script>
+  /**
+ * jquery.pager.js v0.1.0
+ * MIT License
+ * author info pls visit: http://luopq.com
+ * for more info pls visit: https://github.com/LuoPQ/jquery.pager.js
+ * @param $
+ * @param window
+ * @param document
+ * @param undefined
+ */
+(function ($, window, document, undefined) {
+  const defaults = {
+    pageIndex: 0,
+    pageCount: 20,
+    maxButtonCount: 3,
+    prevText: '«',
+    nextText: '»',
+    buildPageUrl: null,
+    onPageChanged: null,
+  };
+
+  function Pager($ele, options) {
+    if (typeof Pager.instance === 'object') {
+      return Pager.instance;
+    }
+    this.$ele = $ele;
+    this.options = options = $.extend(defaults, options || {});
+    this.init();
+    Pager.instance = this;
+    return this;
+  }
+  Pager.prototype = {
+    constructor: Pager,
+    init() {
+      this.renderHtml();
+      this.bindEvent();
+    },
+    renderHtml() {
+      const options = this.options;
+      console.log('option', this.options);
+      const html = [];
+      if(this.options.pageCount < 2) {
+        this.$ele.html(html.join(''));
+        return
+      }
+      // 这里是关键
+      // 临时的起始页码中间页码，当页码数量大于显示的最大按钮数时使用
+      const tempStartIndex = options.pageIndex - Math.floor(options.maxButtonCount / 2);
+
+      // 第一页
+      if (tempStartIndex > 1) {
+        html.push(`<li class="page-item">
+        <a class="page-link" page="1" href="${this.buildPageUrl(options.pageIndex + 1)}" aria-label="Previous">1</a>
+      </li>`);
+      }
+
+      // 计算终止页码，通过max计算一排按钮中的第一个按钮的页码，然后计算出页数量
+      const endIndex = Math.min(options.pageCount, Math.max(0, tempStartIndex) + options.maxButtonCount) - 1;
+      const startIndex = Math.max(0, endIndex - options.maxButtonCount + 1);
+      // 上一页
+      if (startIndex > 0) {
+        html.push(`<li class="page-item">
+        <a page="${options.pageIndex}" class="page-link" href="${this.buildPageUrl(options.pageIndex)}" aria-label="Previous">
+          <span aria-hidden="true">«</span>
+        </a>
+      </li>`);
+      }
+
+      // 生成页码按钮
+      for (let i = startIndex; i <= endIndex; i++) {
+        if (options.pageIndex === i) {
+          html.push(`<li class="page-item active"><a class="page-link fs-7 fw-light ">  ${i + 1}</a></li>`);
+        } else {
+          html.push(`<li class="page-item"><a page="${i + 1}" class="page-link fs-7 fw-light" href="${this.buildPageUrl(options.pageIndex + 1)}">${i + 1}</a></li>`);
+        }
+      }
+      // 生成下一页的按钮
+      if (options.pageIndex < options.pageCount - 2) {
+        html.push(`<li class="page-item">
+        <a page="${options.pageIndex + 2}" class="page-link" href="${this.buildPageUrl(options.pageIndex + 2)}" aria-label="Next">
+          <span aria-hidden="true">»</span>
+        </a>
+      </li>`);
+      }
+
+      // 最后一页
+      if (endIndex < options.pageCount - 2) {
+        html.push(`<li class="page-item">
+        <a page="${options.pageCount}" class="page-link" href="${this.buildPageUrl(options.pageCount)}" aria-label="Next">${options.pageCount}</a>
+      </li>`);
+      }
+      this.$ele.html(html.join(''));
+    },
+    bindEvent() {
+      const that = this;
+      that.$ele.on('click', 'a', function() {
+        const targetPage = parseInt($(this).attr('page'), 10);
+        that.buildPageUrl(targetPage);
+      });
+    },
+    buildPageUrl(pageIndex) {
+      if ($.isFunction(this.options.buildPageUrl)) {
+        return this.options.buildPageUrl(pageIndex);
+      }
+      return 'javascript:;';
+    },
+    getPageIndex() {
+      return this.options.pageIndex;
+    },
+    setPageIndex(pageIndex) {
+      this.options.pageIndex = parseInt(pageIndex) - 1;
+      this.renderHtml();
+    },
+    setPageCount(pageCount) {
+      this.options.pageCount = parseInt(pageCount);
+      this.renderHtml();
+    },
+  };
+
+
+  $.fn.pager = function (options) {
+    options = $.extend(defaults, options || {});
+
+    return new Pager($(this), options);
+  };
+
+})(jQuery, window, document);
+</script>

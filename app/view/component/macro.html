@@ -1,0 +1,38 @@
+{% macro pagination(nowPage, allPage, start, end, static, url) %}
+
+<div class="card-footer d-flex justify-content-between align-items-center fs-7 fw-light px-0">
+  <div>
+    {% if nowPage <= allPage %}
+    第 <$ start $> 到 <$ end $> 条
+    {% endif %}
+  </div>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      
+    </ul>
+  </nav>
+</div>
+<div class="pager_class"></div>
+<script>
+  $(function() {
+    let url = '<$ url $>'
+    let nowPage = '<$ nowPage $>'
+    let allPage = '<$ allPage $>'
+    if (+nowPage > +allPage) {
+      location.href = url + '?p=' + allPage;
+    }
+    if (nowPage < 1) {
+      location.href = url + '?p=' + 1;
+    }
+
+    let pager = $(".pagination").pager();
+    pager.setPageIndex('<$ nowPage $>');
+    pager.setPageCount('<$ allPage $>');
+    $('.pager_class').pager({
+        buildPageUrl: function (p) {
+          location.href = url + '?p=' + p;
+        }
+      })
+  })
+</script>
+{% endmacro %}

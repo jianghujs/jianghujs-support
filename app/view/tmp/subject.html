@@ -1,0 +1,347 @@
+{% extends 'template/template.html' %}
+{% block title %}主题{% endblock %}
+
+{% block css %}
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<main class="page-container mb-2 mb-md-3 mx-auto">
+  <div class="row g-0">
+    <div class="col-md-9">
+      <div class="me-lg-3 me-md-2">
+        <!-- 主题详情 -->
+        <div class="card shadow-0">
+          <div class="card-header d-flex justify-content-between align-items-center fs-7 fw-light">
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <span class="badge rounded-pill badge-light"><$ articleInfo.viewCount $></span>
+                <span>次点击</span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center" role="button">
+                {% if isLike %}
+                <i class="far fa-thumbs-up dislike-touch hidden"></i>
+                <i class="fas fa-thumbs-up like-touch"></i>
+                {% else %}
+                <i class="far fa-thumbs-up dislike-touch"></i>
+                <i class="fas fa-thumbs-up like-touch hidden"></i>
+                {% endif%}
+                <div class="like-touch-label">
+                  <span class="ms-1">点赞</span>
+                  <span class="badge rounded-pill badge-notification bg-danger like-count"><$ articleInfo.likeCount $></span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                {% if isFavorite %}
+                <i class="far fa-heart dis-favorite-touch hidden"></i>
+                <i class="fas fa-heart favorite-touch"></i>
+                {% else %}
+                <i class="far fa-heart dis-favorite-touch"></i>
+                <i class="fas fa-heart favorite-touch hidden"></i>
+                {% endif%}
+                <div class="favorite-touch-label">
+                  <span class="ms-1">收藏</span>
+                  <span class="badge rounded-pill badge-notification bg-danger favorite-count"><$ articleInfo.favoriteCount $></span>
+                </div>
+              </div>
+              <!-- <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                <i class="far fa-eye-slash"></i>
+                <span class="ms-1">忽略主题</span>
+              </div> -->
+              <!-- <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                <i class="fas fa-bug"></i>
+                <span class="ms-1">报告这个主题</span>
+              </div> -->
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <img src="<$ subject.user.avatar $>" alt="" style="width: 50px; height: 50px"
+                      class="rounded-circle" />
+              <div class="ms-3">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <p class="fw-bold"><$ articleInfo.articleTitle $></p>
+                </div>
+                <div class="d-flex justify-content-start align-items-center text-muted fs-8">
+                  <span class="badge badge-light"><$ subject.node $></span>
+                  <div class="ms-3"><i class="far fa-xs fa-user"></i><span class="ms-1"><$ articleInfo.operationByUser $></span></div>
+                  <div class="ms-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ articleInfo.operationAt | parseTimeLater $></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="text-muted fs-7 mt-3"><$ articleInfo.articleContent $></div>
+          </div>
+        </div>
+
+        <!-- 主题列表 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-body py-2">
+            <!-- 分页 -->
+            <div class="card-header d-flex justify-content-between align-items-center fs-7 fw-light px-0">
+              <div class="d-flex justify-content-start align-items-center">
+                <div class="d-flex justify-content-start align-items-center">
+                  <span class="badge rounded-pill badge-light"><$ articleInfo.commentCount $></span>
+                  <span>条回复</span>
+                </div>
+                {% if articleInfo.lastReplyAt %}
+                <div class="d-flex justify-content-start align-items-center ms-2">
+                  <span>最后回复：<$ articleInfo.lastReplyAt $></span>
+                </div>
+                {% endif %}
+              </div>
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  第 1 到 20 条
+                </div>
+                <nav aria-label="Page navigation example" class="ms-2">
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                      </a>
+                    </li>
+                    <li class="page-item"><a class="page-link fs-7 fw-light" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link fs-7 fw-light" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link fs-7 fw-light" href="#">3</a></li>
+                    <li class="page-item">
+                      <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+            <!-- 回复 -->
+            <ul class="list-group list-group-light mt-2">
+              {% for rpy in reply %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="d-flex flex-fill">
+                    <img src="<$ rpy.user.avatars $>" alt="" style="width: 45px; height: 45px"
+                      class="rounded-circle" />
+                    <div class="ms-3 flex-grow-1">
+                      <div class="d-flex justify-content-between align-items-center text-muted mb-1 fs-8">
+                        <div class="d-flex align-items-center">
+                          <span class="badge rounded-pill badge-light"># <$ rpy.loop $></span>
+                          <div class="ms-3"><i class="far fa-xs fa-user"></i><span class="ms-1"><$ rpy.user.name $></span></div>
+                          <div class="ms-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ rpy.time $></span></div>
+                          <div class="d-flex justify-content-start align-items-center ms-3" role="button">
+                            <i class="far fa-thumbs-up"></i>
+                            <!-- <i class="fas fa-thumbs-up"></i> -->
+                            <div>
+                              <span class="ms-1">点赞</span>
+                              {% if rpy.thank != 0 %}
+                              <span class="badge rounded-pill badge-notification bg-danger"><$ rpy.thank $></span>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="d-flex align-items-center" role="button">
+                          <i class="fas fa-reply"></i>
+                          <span class="ms-1">回复</span>
+                        </div>
+                      </div>
+                      <div><$ rpy.content $></div>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+
+            <!-- 分页 -->
+            <div class="card-footer d-flex justify-content-between align-items-center fs-7 fw-light px-0">
+              <div>
+                第 1 到 20 条
+              </div>
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link fs-7 fw-light" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link fs-7 fw-light" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link fs-7 fw-light" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <!-- 发帖 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-body">
+            <textarea class="form-control" rows="4" placeholder="添加一条新回复"></textarea>
+            <div class="d-flex justify-content-between align-items-center">
+              <button type="button" class="btn btn-success shadow-0 mt-2">回复</button>
+              <p class="text-grayish fs-7">尽量让自己的回复能够对别人有帮助</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- 个人信息 -->
+      <div class="card shadow-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <img src="https://mdbootstrap.com/img/new/avatars/14.jpg" alt="" style="width: 45px; height: 45px"
+                class="rounded-circle" />
+              <div class="ms-3">
+                <p><$ username $></p>
+              </div>
+            </div>
+            <a href="">
+              <i class="fas fa-bell"></i>
+              <span class="badge rounded-pill badge-notification bg-danger">11</span>
+            </a>
+          </div>
+          <div class="row g-0 fs-7 text-center mt-3">
+            <div class="col-md position-relative">
+              <p>1</p>
+              <p class="fw-lighter fs-8">节点收藏</p>
+              <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+            </div>
+            <div class="col-md position-relative">
+              <p>2</p>
+              <p class="fw-lighter fs-8">主题收藏</p>
+              <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+            </div>
+            <div class="col-md">
+              <p>0</p>
+              <p class="fw-lighter fs-8">特别关注</p>
+            </div>
+          </div>
+          <hr class="divider-horizontal my-3">
+          <div class="d-flex justify-content-start align-items-center" role="button">
+            <svg style="width: 20px;height: 20px;" t="1660718965221" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3540" width="200" height="200"><path d="M853.034667 808.661333h-242.986667c-23.68 0-42.965333 19.626667-42.965333 43.690667 0 24.106667 19.285333 43.648 42.965333 43.648h242.986667c23.68 0 42.965333-19.541333 42.965333-43.648s-19.285333-43.690667-42.965333-43.690667z" fill="#200E32" opacity=".4" p-id="3541"></path><path d="M439.850667 294.570667l230.229333 186.026666a13.226667 13.226667 0 0 1 2.133333 18.304L399.36 854.528a89.6 89.6 0 0 1-69.546667 34.858667l-148.992 1.834666a16.981333 16.981333 0 0 1-16.725333-13.312l-33.834667-147.2c-5.888-27.050667 0-55.04 17.152-76.586666l274.304-357.376a12.8 12.8 0 0 1 18.176-2.176z" fill="#200E32" p-id="3542"></path><path d="M773.12 369.706667l-44.373333 55.424a12.714667 12.714667 0 0 1-18.048 2.048c-53.930667-43.648-192.128-155.733333-230.442667-186.752a13.141333 13.141333 0 0 1-1.834667-18.432l42.794667-53.162667c38.826667-50.005333 106.538667-54.613333 161.194667-11.008l62.72 50.005333c25.770667 20.181333 42.922667 46.762667 48.768 74.752 6.826667 30.762667-0.426667 61.013333-20.736 87.125334z" fill="#200E32" opacity=".4" p-id="3543"></path></svg>
+            <span class="fw-bolder ms-2 " onclick="createCom()">创建新主题</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+   
+<script>
+  $(function(){
+    const articleId = '<$ articleInfo.articleId $>'
+    $('.dislike-touch').click(function() {
+      doLikeArticle('likeArticle');
+    })
+ 
+    $('.like-touch').click(function() {
+      doLikeArticle('dislikeArticle');
+    })
+    $('.like-touch-label').click(function() {
+      const like = $('.like-touch').css('display');
+      if (like === 'none') {
+        doLikeArticle('likeArticle');
+      } else {
+        doLikeArticle('dislikeArticle');
+      }
+    })
+
+    async function doLikeArticle(type) {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+          data: {
+            appData: {
+              pageId: 'webArticle',
+              actionId: type,
+              actionData: {articleId}
+            }
+          }
+        });
+      if (status === 'success') {
+        if (type === 'likeArticle') {
+          showSuccessAlert('点赞成功');
+          $('.dislike-touch').hide();
+          $('.like-touch').show();
+          $('.like-count').html(+($('.like-count').html()) + 1);
+        } else {
+          showSuccessAlert('取消点赞成功');
+          $('.dislike-touch').show();
+          $('.like-touch').hide();
+          $('.like-count').html(+($('.like-count').html()) - 1);
+        }
+      }
+    }
+    
+    
+    $('.dis-favorite-touch').click(function() {
+      doFavoriteArticle('favoriteArticle');
+    })
+ 
+    $('.favorite-touch').click(function() {
+      doFavoriteArticle('disFavoriteArticle');
+    })
+    
+    $('.favorite-touch-label').click(function() {
+      const like = $('.favorite-touch').css('display');
+      if (like === 'none') {
+        doFavoriteArticle('favoriteArticle');
+      } else {
+        doFavoriteArticle('disFavoriteArticle');
+      }
+    })
+
+    async function doFavoriteArticle(type) {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+          data: {
+            appData: {
+              pageId: 'webArticle',
+              actionId: type,
+              actionData: {articleId}
+            }
+          }
+        });
+      if (status === 'success') {
+        if (type === 'favoriteArticle') {
+          showSuccessAlert('收藏成功');
+          $('.dis-favorite-touch').hide();
+          $('.favorite-touch').show();
+          $('.favorite-count').html(+($('.favorite-count').html()) + 1);
+        } else {
+          showSuccessAlert('取消收藏成功');
+          $('.dis-favorite-touch').show();
+          $('.favorite-touch').hide();
+          $('.favorite-count').html(+($('.favorite-count').html()) - 1);
+        }
+      }
+    }
+
+    async function createCom() {
+      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: 'insertComment',
+            actionData: {
+              articleId,
+              commentContent: '评论'
+            }
+          }
+        }
+      });
+      console.log(status);
+    }
+    
+  });
+</script>
+{% endblock %}

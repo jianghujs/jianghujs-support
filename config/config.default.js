@@ -17,14 +17,17 @@ module.exports = appInfo => {
 
   return {
     appId,
-    appTitle: '江湖演示-初级',
-    appLogo: `${appId}/public/img/logo.png`,
+    appTitle: 'JIANGHU',
+    appLogo: `/${appId}/public/logo.png`,
     appType: 'single',
     appDirectoryLink: '/',
-    indexPage: `/${appId}/page/manual`,
+    indexPage: `/${appId}/page/home`,
     loginPage: `/${appId}/page/login`,
     helpPage: `/${appId}/page/help`,
     uploadDir,
+    adminUrl: `/${appId}/page/login`,
+    loginProtect: 'enable',
+    language: 'zh',
     downloadBasePath,
     primaryColor: "#4caf50",
     primaryColorA80: "#EEF7EE",
@@ -37,6 +40,7 @@ module.exports = appInfo => {
         { prefix: `/${appId}/public/`, dir: path.join(appInfo.baseDir, 'app/public') },
         { prefix: `/${appId}/public/`, dir: path.join(jianghuPath, 'app/public') },
         { prefix: `/${appId}/upload/`, dir: uploadDir },
+        { prefix: `/upload/`, dir: uploadDir },
       ],
     },
     view: {
@@ -47,7 +51,10 @@ module.exports = appInfo => {
         path.join(jianghuPath, 'app/view'),
       ].join(','),
     },
-    middleware,
+    // notfound: {
+    //   pageUrl: `/${appId}/page/404.html`,
+    // },
+    middleware: [ ...middleware, 'webPackage', 'webUserInfo', 'webAuthorization' ],
     ...middlewareMatch,
   };
 

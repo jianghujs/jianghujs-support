@@ -1,0 +1,95 @@
+{% extends 'template/template.html' %}
+{% block title %}位面列表{% endblock %}
+
+{% block content %}
+<main class="page-container mb-2 mb-md-3 mx-auto">
+  <div class="row g-0">
+    <div class="col-md-9">
+      <div class="me-lg-3 me-md-2">
+        <!-- 主内容 -->
+        <div class="card shadow-0">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <svg style="width: 45px; height: 45px" t="1660809604740" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="17300" width="200" height="200"><path d="M480 233.28h64v288h-64z" fill="#EF8D48" p-id="17301"></path><path d="M608 233.248a95.872 95.872 0 0 1-96 96.032 96 96 0 1 1 96-96.032zM609.696 635.008l249.408 143.936-32 55.424-249.408-143.936z" fill="#EF8D48" p-id="17302"></path><path d="M795.104 889.856a95.904 95.904 0 0 1-35.168-131.168 95.968 95.968 0 0 1 131.168-35.136 96 96 0 1 1-96 166.304zM414.304 634.976l32 55.424-249.408 143.968-32-55.424z" fill="#EF8D48" p-id="17303"></path><path d="M180.896 806.688m-96 0a96 96 0 1 0 192 0 96 96 0 1 0-192 0Z" fill="#EF8D48" p-id="17304"></path><path d="M512 615.552m-94.272 0a94.272 94.272 0 1 0 188.544 0 94.272 94.272 0 1 0-188.544 0Z" fill="#FFEDEB" p-id="17305"></path><path d="M512 741.824c-69.632 0-126.24-56.64-126.24-126.24S442.368 489.28 512 489.28s126.24 56.672 126.24 126.272-56.608 126.272-126.24 126.272z m0-188.544a62.336 62.336 0 0 0-62.24 62.272c0 34.304 27.936 62.24 62.24 62.24s62.24-27.936 62.24-62.24A62.336 62.336 0 0 0 512 553.28z" fill="#EF8D48" p-id="17306"></path></svg>
+              <div class="ms-3">
+                <p class="fw-bold mb-1">位面列表</p>
+                <div class="d-flex justify-content-start align-items-center text-muted mb-0 fs-8">
+                  <span class="badge badge-light">11234</span>
+                  <div class="ms-3">nodes now and growing.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 节点列表 -->
+        {% for cgy in category %}
+        <div class="card shadow-0 mt-2">
+          <div class="card-header fw-light d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-start align-items-center">
+              <i class="<$ cgy.icon $> me-2"></i>
+              <span class="ms-2"><$ cgy.name $></span>
+            </div>
+            <div>
+              <span class="badge badge-light"><$ cgy.total $></span>
+            </div>
+          </div>
+          <div class="card-body py-3">
+            <div class="d-flex flex-wrap">
+              {% for node in nodes %}
+              <div class="chip me-1" data-mdb-close="true"><$ node $></div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- 个人信息 -->
+      <div class="card shadow-0">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <img src="https://mdbootstrap.com/img/new/avatars/14.jpg" alt="" style="width: 45px; height: 45px"
+                class="rounded-circle" />
+              <div class="ms-3">
+                <p><$ username $></p>
+              </div>
+            </div>
+            <a href="">
+              <i class="fas fa-bell"></i>
+              <span class="badge rounded-pill badge-notification bg-danger">11</span>
+            </a>
+          </div>
+          <div class="row g-0 fs-7 text-center mt-3">
+            <div class="col-md position-relative">
+              <p>1</p>
+              <p class="fw-lighter fs-8">节点收藏</p>
+              <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+            </div>
+            <div class="col-md position-relative">
+              <p>2</p>
+              <p class="fw-lighter fs-8">主题收藏</p>
+              <div class="vr vr-blurry position-absolute my-0 h-100 d-none d-md-block top-0 end-0"></div>
+            </div>
+            <div class="col-md">
+              <p>0</p>
+              <p class="fw-lighter fs-8">特别关注</p>
+            </div>
+          </div>
+          <hr class="divider-horizontal my-3">
+          <div class="d-flex justify-content-start align-items-center" role="button">
+            <svg style="width: 20px;height: 20px;" t="1660718965221" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3540" width="200" height="200"><path d="M853.034667 808.661333h-242.986667c-23.68 0-42.965333 19.626667-42.965333 43.690667 0 24.106667 19.285333 43.648 42.965333 43.648h242.986667c23.68 0 42.965333-19.541333 42.965333-43.648s-19.285333-43.690667-42.965333-43.690667z" fill="#200E32" opacity=".4" p-id="3541"></path><path d="M439.850667 294.570667l230.229333 186.026666a13.226667 13.226667 0 0 1 2.133333 18.304L399.36 854.528a89.6 89.6 0 0 1-69.546667 34.858667l-148.992 1.834666a16.981333 16.981333 0 0 1-16.725333-13.312l-33.834667-147.2c-5.888-27.050667 0-55.04 17.152-76.586666l274.304-357.376a12.8 12.8 0 0 1 18.176-2.176z" fill="#200E32" p-id="3542"></path><path d="M773.12 369.706667l-44.373333 55.424a12.714667 12.714667 0 0 1-18.048 2.048c-53.930667-43.648-192.128-155.733333-230.442667-186.752a13.141333 13.141333 0 0 1-1.834667-18.432l42.794667-53.162667c38.826667-50.005333 106.538667-54.613333 161.194667-11.008l62.72 50.005333c25.770667 20.181333 42.922667 46.762667 48.768 74.752 6.826667 30.762667-0.426667 61.013333-20.736 87.125334z" fill="#200E32" opacity=".4" p-id="3543"></path></svg>
+            <span class="fw-bolder ms-2">创建新主题</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+   
+{% endblock %}

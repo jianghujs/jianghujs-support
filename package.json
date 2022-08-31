@@ -8,9 +8,10 @@
     "framework": "@jianghujs/jianghu"
   },
   "dependencies": {
+    "@jianghujs/jianghu": "^3.0.41",
     "egg": "^2.15.1",
-    "@jianghujs/jianghu": "3.0.36",
-    "egg-scripts": "^2.11.0"
+    "egg-scripts": "^2.11.0",
+    "loadsh": "^0.0.4"
   },
   "devDependencies": {
     "autod": "^3.0.1",

@@ -1,0 +1,216 @@
+{% extends 'template/template.html' %}
+{% block title %}主题{% endblock %}
+
+{% block content %}
+<main class="page-container mb-2 mb-md-3 mx-auto">
+  <div class="row g-0">
+    <div class="col-md-9">
+      <div class="me-lg-3 me-md-2">
+        <!-- 个人信息 -->
+        <div class="card shadow-0">
+          <div class="card-header d-flex justify-content-between align-items-center fs-7 fw-light">
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <span>今日活跃度排名</span>
+                <span class="badge rounded-pill badge-light ms-1"><$ user.activity $></span>
+              </div>
+            </div>
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="d-flex justify-content-start align-items-center" role="button">
+                <i class="far fa-heart"></i>
+                <!-- <i class="fas fa-heart"></i> -->
+                <span class="ms-1">加入特别关注</span>
+              </div>
+              <div class="d-flex justify-content-start align-items-center ms-4" role="button">
+                <i class="far fa-eye-slash"></i>
+                <span class="ms-1">屏蔽</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <img src="<$ user.avatar $>" alt="" style="width: 50px; height: 50px"
+                      class="rounded-circle" />
+              <div class="ms-3">
+                <div class="d-flex justify-content-start align-items-center mb-1">
+                  <p class="fw-bold"><$ user.name $></p>
+                  <div class="d-flex justify-content-start align-items-center ms-4">
+                    <span class="badge badge-success badge-dot"></span>
+                    <span class="ms-2 fs-8 text-grayish">在线</span>
+                  </div>
+                  <i class="fab fa-twitter ms-3 text-grayish"></i>
+                  <i class="fab fa-facebook ms-3 text-grayish"></i>
+                </div>
+                <div class="d-flex justify-content-start align-items-center text-muted fs-8">
+                  <div>第 <span class="badge badge-light">#<$ user.number $></span> 号会员</div>
+                  <div class="d-flex justify-content-start align-items-center ms-3">
+                    <i class="far fa-xs fa-clock"></i>
+                    <span class="ms-1">加入于 <$ user.join $></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 fs-7"><$ user.description $></div>
+          </div>
+        </div>
+
+        <!-- 主内容 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-header fw-light d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-start align-items-center">
+              <i class="fas fa-comments"></i>
+              <span class="ms-2">发布的主题</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- tab -->
+            <ul class="nav nav-tabs mb-3" id="ex-with-icons" role="tablist">
+              {% for cgy in category %}
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link {% if cgy.name === '技术' %} active {% endif %}" id="ex-with-icons-tab-1" data-mdb-toggle="tab" href="#ex-with-icons-tabs-1" role="tab"
+                    aria-controls="ex-with-icons-tabs-1" aria-selected="true"><i class="<$ cgy.icon $> me-2"></i><$ cgy.name $></a>
+                </li>
+              {% endfor %}
+            </ul>
+  
+            <!-- 主题 -->
+            <ul class="list-group list-group-light mt-2">
+              {% for subject in subjectList %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <p class="fw-bold mb-1">
+                        <a href="<$ pageUrl $>/subject"><$ subject.title $></a>
+                      </p>
+                      <div class="d-flex justify-content-start align-items-center text-muted mb-0 fs-8">
+                        <span class="badge badge-light"><$ subject.node $></span>
+                        <div class="ms-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ subject.time $></span></div>
+                        <div class="ms-3">最后回复来自<span class="ms-1 text-decoration-underline"><$ subject.lastReply $></span></div>
+                        {% if subject.thank and subject.thank != 0 %}
+                        <div class="d-flex justify-content-start align-items-center ms-3" role="button">
+                          <i class="far fa-thumbs-up"></i>
+                          <div>
+                            <span class="ms-1">点赞</span>
+                            <span class="badge rounded-pill badge-notification bg-danger"><$ subject.thank $></span>
+                          </div>
+                        </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <span class="badge rounded-pill badge-light"><$ subject.allReply $></span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- 分页 -->
+          <div class="card-footer d-flex justify-content-between align-items-center fs-7 fw-light">
+            <div>
+              第 1 到 20 条
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">1</a></li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">2</a></li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        
+        <!-- 最近回复 -->
+        <div class="card shadow-0 mt-2">
+          <div class="card-header fw-light d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-start align-items-center">
+              <i class="fas fa-reply"></i>
+              <span class="ms-2">最近回复</span>
+            </div>
+          </div>
+          <div class="card-body py-0">
+            <!-- 回复 -->
+            <ul class="list-group list-group-light">
+              {% for subject in replyList %}
+                <li class="list-group-item">
+                  <div>
+                      <p class="fw-bold mb-1">
+                        <a href="<$ pageUrl $>/subject"><$ subject.title $></a>
+                      </p>
+                      <div class="d-flex justify-content-start align-items-center mb-0 fs-8 text-grayish">
+                        <span class="badge badge-light"><$ subject.node $></span>
+                        <div class="ms-3"><i class="far fa-xs fa-user"></i><span class="ms-1"><$ subject.user.name $></span></div>
+                        <div class="ms-3"><i class="far fa-xs fa-clock"></i><span class="ms-1"><$ subject.time $></span></div>
+                      </div>
+                  </div>
+                  <div class="mt-3" style="color: var(--vt-c-text-1) !important;"><$ subject.reply $></div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <!-- 分页 -->
+          <div class="card-footer d-flex justify-content-between align-items-center fs-7 fw-light">
+            <div>
+              第 1 到 20 条
+            </div>
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">1</a></li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">2</a></li>
+                <li class="page-item"><a class="page-link fs-7 fw-light" href="#">3</a></li>
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+        <!-- repos -->
+        <div class="card shadow-0 mt-2 mt-md-0">
+          <div class="card-header fw-light">repos on github</div>
+          <div class="card-body py-1">
+            <ul class="list-group list-group-light">
+              {% for rep in repos %}
+                <li class="list-group-item">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="text-muted fw-bold fs-7"><$ rep.name $></p>
+                    <p class="text-grayish fs-8">
+                      <span class="badge rounded-pill badge-light"><$ rep.follow $></span>
+                      <span>人关注</span>
+                    </p>
+                  </div>
+                  <p class="text-muted fs-7">
+                    <$ rep.description $>
+                  </p>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+   
+{% endblock %}

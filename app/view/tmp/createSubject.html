@@ -1,0 +1,72 @@
+{% extends 'template/template.html' %}
+{% block title %}创建新主题{% endblock %}
+
+{% block content %}
+<main class="page-container mb-3 mx-auto">
+  <div class="row g-0">
+    <div class="col-md-9">
+      <div class="me-3">
+        <!-- 创作新主题 -->
+        <div class="card shadow-0">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="fw-bold">创建新主题</div>
+            <div class="text-grayish fs-8">20000</div>
+          </div>
+          <div class="card-body">
+            <select class="select" data-mdb-filter="true" data-mdb-placeholder="选择主题节点">
+              {% for node in nodes %}
+              <option value="<$ node $>"><$ node $></option>
+              {% endfor %}
+            </select>
+            <input type="text" class="form-control mt-3" placeholder="主题标题，如果标题能够表达完整内容，正文可以为空"/>
+            <textarea class="form-control mt-3" rows="10" placeholder="正文"></textarea>
+            <div class="d-flex justify-content-between mt-3">
+              <button type="button" class="btn btn-success shadow-0">发布主题</button>
+              <p class="text-grayish fs-7"><i class="fas fa-exclamation-circle me-1"></i>节点使用说明</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <!-- 发帖提示 -->
+      <div class="card shadow-0">
+        <div class="card-header fw-light">提示</div>
+        <div class="card-body py-1">
+          <ul class="list-group list-group-light">
+            {% for warn in createWarn %}
+              <li class="list-group-item fs-7">
+                <p class="text-muted mb-2 fw-bold"><$ warn.title $></p>
+                <p class="text-muted">
+                  <$ warn.description $>
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- 社区指导原则 -->
+      <div class="card shadow-0 mt-2">
+        <div class="card-header fw-light">社区指导原则</div>
+        <div class="card-body py-1">
+          <ul class="list-group list-group-light">
+            {% for rule in rules %}
+              <li class="list-group-item fs-7">
+                <p class="text-muted mb-2 fw-bold"><$ rule.title $></p>
+                <p class="text-muted">
+                  <$ rule.description $>
+                </p>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+   
+{% endblock %}
