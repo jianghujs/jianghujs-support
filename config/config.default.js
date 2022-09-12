@@ -21,7 +21,7 @@ module.exports = appInfo => {
     appLogo: `/${appId}/public/logo.png`,
     appType: 'single',
     appDirectoryLink: '/',
-    indexPage: `/${appId}/page/home`,
+    indexPage: '/go/1000',
     loginPage: `/${appId}/page/login`,
     helpPage: `/${appId}/page/help`,
     uploadDir,

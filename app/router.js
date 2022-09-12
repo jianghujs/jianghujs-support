@@ -14,10 +14,5 @@ module.exports = app => {
   router.get('/go/:categoryId', controller.index.category);
   router.get('/member/:userId', controller.index.member);
   router.get('/t/:articleId', controller.index.article);
-  router.get('/write', controller.index.write);
-  router.get('/tag/:tag', controller.index.tag);
-  router.get('/settings', controller.index.setting);
-  router.get('/my/:tab', controller.index.collect);
-  
 };
 
