@@ -4,6 +4,7 @@ const _ = require("loadsh");
 const validateUtil = require("@jianghujs/jianghu/app/common/validateUtil");
 const idGenerateUtil = require("@jianghujs/jianghu/app/common/idGenerateUtil");
 const { tableEnum } = require('../constant/constant');
+const { BizError, errorInfoEnum } = require('../constant/error');
 
 const actionDataScheme = Object.freeze({
   beforeHookForArticleId: {
