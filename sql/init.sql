@@ -37,9 +37,6 @@ CREATE TABLE `_constant` (
 ) ENGINE = InnoDB COMMENT = '常量表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _constant
-# ------------------------------------------------------------
 
 
 
@@ -66,9 +63,6 @@ CREATE TABLE `_constant_ui` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 25 COMMENT = '常量表;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _constant_ui
-# ------------------------------------------------------------
 
 INSERT INTO `_constant_ui` (`id`,`constantKey`,`constantType`,`pageId`,`desc`,`en`,`zh`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (1,'header','object','all',NULL,'{\n\t\"logo\": \"/logo.png\",\n\t\"title\": \"JIANGHU\",\n\t\"menuList\": [{\n\t\t\"categoryId\": \"10004\",\n\t\t\"categoryName\": \"jianghuJS\",\n\t\t\"path\": \"/page/article/10004\",\n\t\t\"isLogin\": true\n\t}, {\n\t\t\"categoryName\": \"Training\",\n\t\t\"path\": \"/page/article/10083\",\n\t\t\"isLogin\": false\n\t}, {\n\t  \"categoryId\": \"10005\",\n\t\t\"categoryName\": \"duoxing-instant message\",\n\t\t\"path\": \"/page/article/10016\",\n\t\t\"isLogin\": true\n\t}, {\n\t    \"categoryId\": \"10009\",\n\t\t\"categoryName\": \"xuanfeng-content management\",\n\t\t\"path\": \"/page/article/10075\",\n\t\t\"isLogin\": true\n\t}, {\n\t  \"categoryId\": \"10010\",\n\t\t\"categoryName\": \"wulin-live classroom\",\n\t\t\"path\": \"/page/article/10076\",\n\t\t\"isLogin\": true\n\t}],\n\t\"userAction\": {\n\t\t\"isOpen\": true,\n\t\t\"admin\": true,\n\t\t\"password\": true,\n\t\t\"logout\": true\n\t}\n}','{\n\t\"logo\": \"/img/logo.svg\",\n\t\"title\": \"JIANGHU\"\n}','insert',NULL,NULL,NULL);
 INSERT INTO `_constant_ui` (`id`,`constantKey`,`constantType`,`pageId`,`desc`,`en`,`zh`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (10,'body','object','home','首页说明文字','{ \r\n  \"title\": \"<span class=\'jianghu-home-hero-accent\'>Progressive</span></br>Enterprise Framework</p>\", \r\n  \"desc\": \"beginners will enjoy learning and using\",\r\n\t\"btnGettingStarted\": \"Getting Started\"\r\n}','{\"title\": \"<span class=\'jianghu-home-hero-accent\'>nunjucks</span></br>DEMO</p>\", \"desc\": \"构建短平快的学习路径，系统学习企业级应用开发的整体框架\", \"btnGettingStarted\": \"开始使用\"}','insert',NULL,NULL,NULL);
@@ -130,9 +124,6 @@ CREATE TABLE `_group` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 COMMENT = '群组表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _group
-# ------------------------------------------------------------
 
 INSERT INTO `_group` (`id`,`groupId`,`groupName`,`groupDesc`,`groupAvatar`,`groupExtend`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (1,'adminGroup','管理组','管理组',NULL,'{}','insert',NULL,NULL,NULL);
 INSERT INTO `_group` (`id`,`groupId`,`groupName`,`groupDesc`,`groupAvatar`,`groupExtend`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (6,'wudang','武当','武当',NULL,'{}','insert',NULL,NULL,NULL);
@@ -162,12 +153,9 @@ CREATE TABLE `_page` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 58 COMMENT = '页面表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _page
-# ------------------------------------------------------------
 
 INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (2,'help','helpV3','帮助',NULL,'dynamicInMenu','11','insert',NULL,NULL,NULL);
-INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (3,'login','loginV3','登陆','{\n  \"beforeHook\":[\r\n    {\"field\": \"constantUiMap\", \"service\": \"constantUi\", \"serviceFunc\": \"getConstantUiMap\"},\n\t\t{\"field\": \"userInfo\", \"service\": \"user\", \"serviceFunc\": \"userInfo\"}\n  ]\n}','','','insert',NULL,NULL,NULL);
+INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (3,'login','loginV3','登陆','','','','insert',NULL,NULL,NULL);
 INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (6,'manual',NULL,'操作手册',NULL,'dynamicInMenu','0','insert',NULL,NULL,NULL);
 INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (13,'home','','seo','{\n  \"beforeHook\":[\r\n    {\"field\": \"constantUiMap\", \"service\": \"constantUi\", \"serviceFunc\": \"getConstantUiMap\"},\n\t\t{\"field\": \"userInfo\", \"service\": \"user\", \"serviceFunc\": \"userInfo\"},\r\n    {\"field\": \"njk\", \"service\": \"njk\", \"serviceFunc\": \"test\"}\n  ]\n}','seo','','insert',NULL,NULL,NULL);
 INSERT INTO `_page` (`id`,`pageId`,`pageFile`,`pageName`,`pageHook`,`pageType`,`sort`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (39,'categoryManagement','','分类管理','','showInMenu','3','jhInsert',NULL,NULL,NULL);
@@ -240,9 +228,6 @@ CREATE TABLE `_resource` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 398 COMMENT = '请求资源表; 软删除未启用; resourceId=`${appId}.${pageId}.${actionId}`';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _resource
-# ------------------------------------------------------------
 
 INSERT INTO `_resource` (`id`,`accessControlTable`,`resourceHook`,`pageId`,`actionId`,`desc`,`resourceType`,`appDataSchema`,`resourceData`,`requestDemo`,`responseDemo`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (231,NULL,NULL,'login','passwordLogin','✅登陆','service','{}','{\"service\": \"user\", \"serviceFunction\": \"passwordLogin\"}','','','update',NULL,NULL,'2022-04-27T15:32:57+08:00');
 INSERT INTO `_resource` (`id`,`accessControlTable`,`resourceHook`,`pageId`,`actionId`,`desc`,`resourceType`,`appDataSchema`,`resourceData`,`requestDemo`,`responseDemo`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (251,NULL,NULL,'allPage','logout','✅登出','service','{}','{\"service\": \"user\", \"serviceFunction\": \"logout\"}','','','insert',NULL,NULL,NULL);
@@ -321,9 +306,6 @@ CREATE TABLE `_role` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 COMMENT = '角色表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _role
-# ------------------------------------------------------------
 
 INSERT INTO `_role` (`id`,`roleId`,`roleName`,`roleDesc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (3,'administrator','系统管理员','','insert',NULL,NULL,NULL);
 INSERT INTO `_role` (`id`,`roleId`,`roleName`,`roleDesc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (6,'boss','掌门','','insert',NULL,NULL,NULL);
@@ -351,9 +333,6 @@ CREATE TABLE `_test_case` (
 ) ENGINE = InnoDB COMMENT = '测试用例表';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _test_case
-# ------------------------------------------------------------
 
 
 
@@ -379,9 +358,6 @@ CREATE TABLE `_ui` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 123 COMMENT = 'ui 施工方案';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _ui
-# ------------------------------------------------------------
 
 
 
@@ -412,9 +388,6 @@ CREATE TABLE `_user` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 49 COMMENT = '用户表';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _user
-# ------------------------------------------------------------
 
 INSERT INTO `_user` (`id`,`idSequence`,`userId`,`username`,`clearTextPassword`,`password`,`md5Salt`,`userStatus`,`userType`,`config`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (42,NULL,'admin','系统管理员','123456','f8b8fd44ea577b4fd3b6eed1ef5f2791','Rqb6MMfg7mZx','active',NULL,NULL,'jhUpdate','admin','系统管理员','2022-08-23T10:15:48+08:00');
 INSERT INTO `_user` (`id`,`idSequence`,`userId`,`username`,`clearTextPassword`,`password`,`md5Salt`,`userStatus`,`userType`,`config`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (43,NULL,'W00001','张三丰','123456','38d61d315e62546fe7f1013e31d42f57','Xs4JSZnhiwsR','active',NULL,NULL,'insert',NULL,NULL,NULL);
@@ -446,9 +419,6 @@ CREATE TABLE `_user_group_role` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 579 COMMENT = '用户群组角色关联表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _user_group_role
-# ------------------------------------------------------------
 
 INSERT INTO `_user_group_role` (`id`,`userId`,`groupId`,`roleId`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (568,'admin','adminGroup','administrator','insert',NULL,NULL,NULL);
 INSERT INTO `_user_group_role` (`id`,`userId`,`groupId`,`roleId`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (569,'W00001','wudang','boss','insert',NULL,NULL,NULL);
@@ -481,9 +451,6 @@ CREATE TABLE `_user_group_role_page` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 37 COMMENT = '用户群组角色 - 页面 映射表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _user_group_role_page
-# ------------------------------------------------------------
 
 INSERT INTO `_user_group_role_page` (`id`,`user`,`group`,`role`,`page`,`allowOrDeny`,`desc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (1,'*','public','*','login','allow','登陆页面; 开放所有用户;','insert',NULL,NULL,NULL);
 INSERT INTO `_user_group_role_page` (`id`,`user`,`group`,`role`,`page`,`allowOrDeny`,`desc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (2,'*','login','*','help,manual','allow','工具页; 开放给登陆用户;','insert',NULL,NULL,NULL);
@@ -512,9 +479,6 @@ CREATE TABLE `_user_group_role_resource` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 137 COMMENT = '用户群组角色 - 请求资源 映射表; 软删除未启用;';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: _user_group_role_resource
-# ------------------------------------------------------------
 
 INSERT INTO `_user_group_role_resource` (`id`,`user`,`group`,`role`,`resource`,`allowOrDeny`,`desc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (1,'*','public','*','login.passwordLogin','allow','登陆resource, 开放给所有用户','insert',NULL,NULL,NULL);
 INSERT INTO `_user_group_role_resource` (`id`,`user`,`group`,`role`,`resource`,`allowOrDeny`,`desc`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (2,'*','login','*','allPage.*','allow','工具类resource, 开放给所有登陆成功的用户','insert',NULL,NULL,NULL);
@@ -570,9 +534,6 @@ CREATE TABLE `access_control_student` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 52 COMMENT = '学生表的 accessControl 表';
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: access_control_student
-# ------------------------------------------------------------
 
 INSERT INTO `access_control_student` (`id`,`userId`,`username`,`resourceData`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (50,'G00001','洪七公','{ \"where\":{\"level\": \"02\"} }','insert',NULL,NULL,NULL);
 INSERT INTO `access_control_student` (`id`,`userId`,`username`,`resourceData`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (51,'H00001','岳不群','{ \"where\":{\"level\": \"02\"} }','insert',NULL,NULL,NULL);
@@ -617,9 +578,6 @@ CREATE TABLE `article` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1428;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: article
-# ------------------------------------------------------------
 
 
 
@@ -641,9 +599,6 @@ CREATE TABLE `article_favorite` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 516;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: article_favorite
-# ------------------------------------------------------------
 
 INSERT INTO `article_favorite` (`id`,`userId`,`articleId`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (515,'admin','100005','insert',NULL,NULL,'2022-08-22T18:13:42+08:00');
 
@@ -671,9 +626,6 @@ CREATE TABLE `article_info` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 819;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: article_info
-# ------------------------------------------------------------
 
 INSERT INTO `article_info` (`id`,`articleId`,`articleViewCount`,`articleCommentCount`,`articleFavoriteCount`,`articleLikeCount`,`articleDislikeCount`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (76,100000,'274',NULL,'1',NULL,NULL,'update','admin','武林盟主','2022-04-10T14:48:20+08:00');
 
@@ -697,9 +649,7 @@ CREATE TABLE `article_like` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 558;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: article_like
-# ------------------------------------------------------------
+
 
 
 
@@ -754,9 +704,6 @@ CREATE TABLE `category` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 135;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: category
-# ------------------------------------------------------------
 
 INSERT INTO `category` (`id`,`categoryId`,`categoryName`,`categoryIntro`,`categoryGroup`,`categoryGroupSort`,`categoryPublishStatus`,`categoryCreateTime`,`categoryCreateUserId`,`categoryCreateUsername`,`categoryUpdateTime`,`categoryUpdateUserId`,`categoryUpdateUsername`,`operation`,`operationByUserId`,`operationByUser`,`categoryFavoriteCount`,`operationAt`) VALUES (133,1000,'程序员','程序员简介','程序',NULL,'','','','','','','','','','',0,NULL);
 INSERT INTO `category` (`id`,`categoryId`,`categoryName`,`categoryIntro`,`categoryGroup`,`categoryGroupSort`,`categoryPublishStatus`,`categoryCreateTime`,`categoryCreateUserId`,`categoryCreateUsername`,`categoryUpdateTime`,`categoryUpdateUserId`,`categoryUpdateUsername`,`operation`,`operationByUserId`,`operationByUser`,`categoryFavoriteCount`,`operationAt`) VALUES (134,1001,'Python','测试简介文字','程序',NULL,'','','','','','','','','','',0,NULL);
@@ -789,9 +736,6 @@ CREATE TABLE `comment` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 243;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: comment
-# ------------------------------------------------------------
 
 INSERT INTO `comment` (`id`,`commentId`,`userId`,`articleId`,`likeUserIdList`,`commentContent`,`commentStatus`,`replyCommentId`,`replyCommentContentJson`,`commentCreateUserId`,`commentCreateUsername`,`commentCreateTime`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (226,'100000',NULL,'100000',NULL,'评论','active',NULL,NULL,NULL,NULL,NULL,'insert','admin','系统管理员','2022-08-20T12:14:15+08:00');
 
@@ -808,9 +752,6 @@ CREATE TABLE `notice` (
 ) ENGINE = MyISAM;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: notice
-# ------------------------------------------------------------
 
 
 
@@ -840,9 +781,6 @@ CREATE TABLE `student` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 176;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: student
-# ------------------------------------------------------------
 
 
 
@@ -885,9 +823,6 @@ CREATE TABLE `user_info` (
 ) ENGINE = MyISAM AUTO_INCREMENT = 2;
 
 
-# ------------------------------------------------------------
-# DATA DUMP FOR TABLE: user_info
-# ------------------------------------------------------------
 
 INSERT INTO `user_info` (`id`,`userId`,`userEmail`,`userArticleCount`,`userSignature`,`userGender`,`userAvatar`,`userContact`,`lastLoginTime`,`userProfileViewCount`,`userProfilePermission`,`articleViewPermission`,`userLevel`,`userWallet`,`userEp`,`userTitle`,`userNotification`,`userBirthday`,`userLastIp`,`userOnlineStatus`,`timezone`,`userHotArticleCount`,`userFavoriteCategoryList`,`userFavoriteUserIdList`,`operation`,`operationByUserId`,`operationByUser`,`operationAt`) VALUES (1,'admin','',NULL,'',NULL,'/testFile/1660448512308_626796_1660410560107_435912_1002.png',NULL,NULL,NULL,'login',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'1000','admin','update','admin','系统管理员','2022-08-30T16:27:28+08:00');
 
