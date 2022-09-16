@@ -17,7 +17,7 @@ module.exports = appInfo => {
 
   return {
     appId,
-    appTitle: 'JIANGHU',
+    appTitle: '帮助中心',
     appLogo: `/${appId}/public/logo.png`,
     appType: 'single',
     appDirectoryLink: '/',
