@@ -209,15 +209,17 @@
     })
 
     async function doLikeArticle(type) {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
-          data: {
-            appData: {
-              pageId: 'webArticle',
-              actionId: type,
-              actionData: {articleId}
-            }
+      const result = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: type,
+            actionData: {articleId}
           }
-        });
+        }
+      });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         if (type === 'likeArticle') {
           showSuccessAlert('点赞成功');
@@ -257,15 +259,17 @@
       }
     })
     async function doFavoriteArticle(type) {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
-          data: {
-            appData: {
-              pageId: 'webArticle',
-              actionId: type,
-              actionData: {articleId}
-            }
+      const result = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: type,
+            actionData: {articleId}
           }
-        });
+        }
+      });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         if (type === 'favoriteArticle') {
           showSuccessAlert('收藏成功');
@@ -296,7 +300,7 @@
         showFailAlert('请输入评论内容');
         return
       }
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+      const result = await window.jianghuAxios({
         data: {
           appData: {
             pageId: 'webArticle',
@@ -309,6 +313,8 @@
           }
         }
       });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         showSuccessAlert('评论成功');
         setTimeout(function() {
@@ -338,15 +344,17 @@
     })
 
     async function doLikeComment(type, id) {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
-          data: {
-            appData: {
-              pageId: 'webArticle',
-              actionId: type,
-              actionData: {id}
-            }
+      const result = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: type,
+            actionData: {id}
           }
-        });
+        }
+      });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         if (type === 'likeComment') {
           showSuccessAlert('点赞成功');

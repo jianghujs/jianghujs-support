@@ -257,17 +257,18 @@
         doLikeArticle('dislikeArticle');
       }
     })
-
     async function doLikeArticle(type) {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
-          data: {
-            appData: {
-              pageId: 'webArticle',
-              actionId: type,
-              actionData: {articleId}
-            }
+      const result = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: type,
+            actionData: {articleId}
           }
-        });
+        }
+      });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         if (type === 'likeArticle') {
           showSuccessAlert('点赞成功');
@@ -302,15 +303,17 @@
     })
 
     async function doFavoriteArticle(type) {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
-          data: {
-            appData: {
-              pageId: 'webArticle',
-              actionId: type,
-              actionData: {articleId}
-            }
+      const result = await window.jianghuAxios({
+        data: {
+          appData: {
+            pageId: 'webArticle',
+            actionId: type,
+            actionData: {articleId}
           }
-        });
+        }
+      });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       if (status === 'success') {
         if (type === 'favoriteArticle') {
           showSuccessAlert('收藏成功');
@@ -327,7 +330,7 @@
     }
 
     async function createCom() {
-      const {data: {appData : {resultData}, status}} = await window.jianghuAxios({
+      const result = await window.jianghuAxios({
         data: {
           appData: {
             pageId: 'webArticle',
@@ -339,6 +342,8 @@
           }
         }
       });
+      const { status } = result.data
+      const { resultData } = result.data.appData
       console.log(status);
     }
     
